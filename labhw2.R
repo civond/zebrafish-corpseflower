@@ -1,6 +1,6 @@
 library(ggplot2);
+library(tidyverse);
 library(scales);
-library(ggpubr);
 
 #Question 1A/1C
 data = read.csv(file="C:/Users/doria/OneDrive/Desktop/Storage/School/AppliedStatistics/zebrafish-corpseflower/data/chap03q23ZebraFishBoldness.csv", sep=",", header=T);
@@ -25,6 +25,15 @@ x <- data2$numberOfBeetles
 standard_error(x)
 
 #Question 2C
-ggplot(data=data2, aes(y=numberOfBeetles)) +
-  geom_histogram()
+data2 <- tibble::rowid_to_column(data2, "index")
+
+
+ggplot(data=data2, aes(x=index,y=numberOfBeetles)) +
+  geom_line(color="blue") + 
+  geom_point() +
+  labs(title="Number of Beetles Visiting Per Night", 
+       x="Night",
+       y="Number of Beetles") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 8));
+  
 
